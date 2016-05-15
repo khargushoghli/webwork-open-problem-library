@@ -1,0 +1,66 @@
+##DESCRIPTION
+## Word problem
+## 
+##ENDDESCRIPTION
+## Problem1('')
+## KEYWORDS('mathematical models','problem solving','formulas','algebra')
+## Date: 2007/09
+
+DOCUMENT();        # This should be the first executable line in the problem.
+
+loadMacros(
+  "PGstandard.pl",
+  "MathObjects.pl",
+  "contextCurrency.pl",
+  "CofIdaho_macros.pl"
+);
+
+TEXT(beginproblem());
+
+######################################
+#  Setup
+
+$a = random(3,10,1);
+$answer = random(600,1300,10);
+$b = $answer*(1+$a/100);
+
+Context(Currency);
+$price = Currency($b);
+$string = "ddd.cc";
+
+######################################
+#  Main text
+
+BEGIN_TEXT
+After a $a$PERCENT raise, you make $DOLLAR$b per week.
+What was your weekly income before the raise??
+$PAR
+a) Write an equation to model the problem.  Let $BITALIC x $EITALIC
+represent your salary before the raise.
+$BR
+Answer: \{ans_rule(20) \}
+$PAR
+b) Solve the equation to find the equation before the raise. (Note: Your answer should be in the form $BITALIC $DOLLAR$string.$EITALIC)
+$BR
+Answer: \{ans_rule(20) \}
+END_TEXT
+
+######################################
+#  Answers
+#  Note:  This should been to be changed whenever an Equation
+#         MathObject is written or a better equation checker is written.
+
+$p = $a/100;
+$ans_a = "x + $p * x = $b";
+ANS(Picky_equation_cmp($ans_a));
+
+$ans_b = Currency($answer);
+ANS($ans_b->cmp);
+
+$showPartialCorrectAnswers = 1;
+
+######################################
+
+
+
+ENDDOCUMENT();
